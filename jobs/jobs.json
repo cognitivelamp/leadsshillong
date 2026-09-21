@@ -12,28 +12,6 @@
       "description": "Deliver conceptual mathematics instruction, build problem-solving confidence, and support students in class projects and Olympiad preparation."
     },
     {
-      "experience": "Minimum 3 years in Higher Secondary teaching",
-      "job_code": "LEADS-ENG-2026-001",
-      "qualification": "Master's Degree in English with B.Ed",
-      "date_posted": "2026-02-03",
-      "department": "Languages",
-      "status": "closed",
-      "title": "PGT English",
-      "deadline": "2026-02-20",
-      "description": "Lead English instruction for senior secondary classes, design assessment strategies, and mentor students for board readiness and communication excellence."
-    },
-    {
-      "experience": "Minimum 2 years in admissions or school counseling",
-      "job_code": "LEADS-ADM-2026-003",
-      "qualification": "Graduate in any discipline; education counseling certification preferred",
-      "date_posted": "2026-01-27",
-      "department": "Administration",
-      "status": "closed",
-      "title": "Admissions Counselor",
-      "deadline": "2026-02-15",
-      "description": "Guide families through the admissions journey, coordinate enrollment pipelines, and maintain communication with prospective parents and students."
-    },
-    {
       "experience": "1-2 years in school or college laboratory support",
       "job_code": "LEADS-SCI-2026-004",
       "qualification": "Diploma or Bachelor's in Science",
@@ -65,6 +43,28 @@
       "title": "Computer Science Teacher",
       "deadline": "2026-02-25",
       "description": "Teach foundational and advanced computer science concepts, mentor coding projects, and support technology-enabled classroom innovation."
+    },
+    {
+      "experience": "Minimum 3 years in Higher Secondary teaching",
+      "job_code": "LEADS-ENG-2026-001",
+      "qualification": "Master's Degree in English with B.Ed",
+      "date_posted": "2026-02-03",
+      "department": "Languages",
+      "status": "closed",
+      "title": "PGT English",
+      "deadline": "2026-02-20",
+      "description": "Lead English instruction for senior secondary classes, design assessment strategies, and mentor students for board readiness and communication excellence."
+    },
+    {
+      "experience": "Minimum 2 years in admissions or school counseling",
+      "job_code": "LEADS-ADM-2026-003",
+      "qualification": "Graduate in any discipline; education counseling certification preferred",
+      "date_posted": "2026-01-27",
+      "department": "Administration",
+      "status": "closed",
+      "title": "Admissions Counselor",
+      "deadline": "2026-02-15",
+      "description": "Guide families through the admissions journey, coordinate enrollment pipelines, and maintain communication with prospective parents and students."
     }
   ]
 }
