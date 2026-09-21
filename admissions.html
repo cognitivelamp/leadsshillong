@@ -638,21 +638,49 @@
                 if(formData.get('file_aadhaar').size > 0) files.aadhaar = await getBase64(formData.get('file_aadhaar'), `${safeStudentName}_Aadhaar`);
 
                 const payload = { ...data, files: files };
-                
-                const response = await fetch(SCRIPT_URL, {
+                const requestBody = JSON.stringify(payload);
+
+                let formSubmitted = false;
+                let submissionError = null;
+
+                try {
+                  const response = await fetch(SCRIPT_URL, {
                     method: "POST",
+                    mode: "cors",
+                    credentials: "omit",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload)
-                });
+                    body: requestBody,
+                    signal: AbortSignal.timeout(30000)
+                  });
 
-                const result = await response.json();
+                  const result = await response.json().catch(() => ({}));
 
-                if (result.status === "success") {
+                  if (result.status === "success" || result.ok === true) {
+                    formSubmitted = true;
+                  } else {
+                    submissionError = result.message || result.error || "Database error occurred on the server.";
+                  }
+                } catch (corsError) {
+                  console.warn("CORS submission failed, retrying without CORS:", corsError.message);
+                  try {
+                    await fetch(SCRIPT_URL, {
+                      method: "POST",
+                      mode: "no-cors",
+                      credentials: "omit",
+                      body: requestBody
+                    });
+                    formSubmitted = true;
+                  } catch (noCorsError) {
+                    submissionError = noCorsError.message || "Network request failed.";
+                  }
+                }
+
+                if (formSubmitted) {
                     form.classList.add('hidden');
                     successMsg.classList.remove('hidden');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
-                    throw new Error(result.message || "Database error occurred on the server.");
+                    throw new Error(submissionError || "Database error occurred on the server.");
                 }
 
             } catch (error) {

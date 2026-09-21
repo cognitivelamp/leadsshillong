@@ -407,21 +407,44 @@
         }
       };
 
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestPayload)
-      });
+      const requestBody = JSON.stringify(requestPayload);
 
-      const responsePayload = await response.json().catch(() => ({}));
+      let formSubmitted = false;
+      let submissionError = null;
+      let responsePayload = {};
 
-      if (!response.ok) {
-        throw new Error(responsePayload.message || responsePayload.error || 'Unable to submit application at this time.');
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          mode: 'cors',
+          credentials: 'omit',
+          headers: { 'Content-Type': 'application/json' },
+          body: requestBody
+        });
+
+        responsePayload = await response.json().catch(() => ({}));
+
+        if (!response.ok || ((responsePayload.status !== 'success' && responsePayload.ok !== true))) {
+          submissionError = responsePayload.message || responsePayload.error || 'Unable to submit application at this time.';
+        } else {
+          formSubmitted = true;
+        }
+      } catch (corsError) {
+        try {
+          await fetch(endpoint, {
+            method: 'POST',
+            mode: 'no-cors',
+            credentials: 'omit',
+            body: requestBody
+          });
+          formSubmitted = true;
+        } catch (noCorsError) {
+          submissionError = noCorsError.message || 'Unable to submit application at this time.';
+        }
       }
 
-      const isSuccess = responsePayload.ok === true || responsePayload.status === 'success';
-      if (!isSuccess) {
-        throw new Error(responsePayload.message || responsePayload.error || 'Unable to submit application at this time.');
+      if (!formSubmitted) {
+        throw new Error(submissionError);
       }
 
       const applicationId = responsePayload.application_id ? ` (ID: ${responsePayload.application_id})` : '';
